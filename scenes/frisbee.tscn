@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://6qhd6hiytuew"]
+
+[ext_resource type="Script" path="res://scripts/frisbee.gd" id="1_p4awb"]
+[ext_resource type="Texture2D" uid="uid://c0vas6kxkscnh" path="res://assets/frisbee.png" id="2_ud6mj"]
+[ext_resource type="Texture2D" uid="uid://c81xigwrr1u1b" path="res://assets/arrow.png" id="3_puktw"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_e5ifh"]
+radius = 8.0
+
+[node name="Frisbee" type="Area2D" node_paths=PackedStringArray("arrow")]
+script = ExtResource("1_p4awb")
+air_resistance = 0.15
+invert_factor = -0.02
+initial_speed = 200.0
+arrow = NodePath("Frisbee/Arrow")
+
+[node name="Frisbee" type="Sprite2D" parent="."]
+texture = ExtResource("2_ud6mj")
+
+[node name="Arrow" type="Sprite2D" parent="Frisbee"]
+position = Vector2(0, -13.5)
+scale = Vector2(0.59375, 0.53125)
+texture = ExtResource("3_puktw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_e5ifh")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

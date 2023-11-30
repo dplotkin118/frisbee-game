@@ -2,6 +2,8 @@ extends CharacterBody2D
 
 @export var is_handler: bool = false
 @onready var frisbee: Area2D = $"../../Frisbee"
+
+var is_on_offense: bool = true
 signal throw
 
 func _physics_process(delta: float) -> void:

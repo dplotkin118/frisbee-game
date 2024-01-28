@@ -8,9 +8,9 @@
 radius = 8.0
 
 [node name="Frisbee" type="Area2D" node_paths=PackedStringArray("arrow")]
+rotation = -1.5708
 script = ExtResource("1_p4awb")
 air_resistance = 0.15
-invert_factor = -0.02
 initial_speed = 200.0
 arrow = NodePath("Frisbee/Arrow")
 

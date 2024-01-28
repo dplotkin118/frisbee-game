@@ -7,6 +7,7 @@ var angular_velocity: float = 1
 @export var air_resistance: float
 @export var invert_factor: float
 @export var initial_speed: float
+@export var initial_rotation: float = deg_to_rad(-90)
 var initial_direction: Vector2
 
 var can_fly: bool = false
@@ -18,9 +19,14 @@ var thrown: bool = false
 func _ready() -> void:
 	initial_direction = Vector2(0, -1)
 	linear_velocity = initial_direction * initial_speed
-	var characters = $"../Characters".get_children()
-	for character in characters:
-		character.throw.connect(_on_character_throw)
+	#var characters = $"../OffensivePlayers".get_children()
+
+func reset_defaults():
+	initial_direction = Vector2(0, -1)
+	can_fly = false
+	linear_velocity = initial_direction * initial_speed
+	rotation = initial_rotation
+	thrown = false
 	
 func rotate_vector(vector: Vector2, angle: float) -> Vector2:
 	var temp_vector: Vector2 = vector
@@ -64,11 +70,10 @@ func _process(delta: float) -> void:
 
 	if initial_speed <= 50:
 		initial_speed = 50
-
 # make frisbee stop if it has reached x point on its arc (height factor?)
 
 func rotate_frisbee(direction: float) -> void:
-	rotation += .1 * direction
+	rotation += deg_to_rad(2) * direction
 	
 func invert_frisbee(direction: float) -> void:
 	invert_factor += .001 * direction
@@ -78,13 +83,12 @@ func change_power(direction: float) -> void:
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.is_in_group("character"):
-		can_fly = false
-		linear_velocity = Vector2.ZERO
-		rotation = 0
-		position = Vector2(body.position.x + 23, body.position.y)
+		reset_defaults()
+		set_relative_position(body)
 		body.is_handler = true
-		thrown = false
-
-
-func _on_character_throw() -> void:
+	
+func throw_frisbee() -> void:
 	thrown = true
+	
+func set_relative_position(character: Node2D) -> void:
+	position = Vector2(character.position.x, character.position.y - 23)

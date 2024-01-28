@@ -2,15 +2,17 @@
 
 [ext_resource type="Script" path="res://scenes/main.gd" id="1_4ybba"]
 [ext_resource type="PackedScene" uid="uid://6qhd6hiytuew" path="res://scenes/frisbee.tscn" id="1_mxd2t"]
-[ext_resource type="PackedScene" uid="uid://d4a4ompl0e8rn" path="res://scenes/character.tscn" id="2_hlsjr"]
+[ext_resource type="PackedScene" uid="uid://bsho0g568m4d2" path="res://scenes/field.tscn" id="2_0w8mv"]
 [ext_resource type="Script" path="res://scripts/UI.gd" id="3_pnjm7"]
 [ext_resource type="Script" path="res://scenes/OffensivePlayers.gd" id="5_x4680"]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_4ybba")
 
+[node name="Field" parent="." instance=ExtResource("2_0w8mv")]
+
 [node name="Frisbee" parent="." instance=ExtResource("1_mxd2t")]
-position = Vector2(673, 560)
+position = Vector2(904, 372)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 script = ExtResource("3_pnjm7")
@@ -30,11 +32,19 @@ offset_bottom = 68.0
 
 [node name="Characters" type="Node2D" parent="."]
 
-[node name="Character" parent="Characters" instance=ExtResource("2_hlsjr")]
-position = Vector2(645, 568)
-
-[node name="Character2" parent="Characters" instance=ExtResource("2_hlsjr")]
-position = Vector2(660, 385)
-
 [node name="OffensivePlayers" type="Node2D" parent="."]
 script = ExtResource("5_x4680")
+
+[node name="Starting Locations" type="Node" parent="."]
+
+[node name="Cutter1" type="Node2D" parent="Starting Locations"]
+position = Vector2(776, 403)
+
+[node name="Cutter2" type="Node2D" parent="Starting Locations"]
+position = Vector2(676, 403)
+
+[node name="Cutter3" type="Node2D" parent="Starting Locations"]
+position = Vector2(576, 403)
+
+[node name="Handler1" type="Node2D" parent="Starting Locations"]
+position = Vector2(911, 327)
